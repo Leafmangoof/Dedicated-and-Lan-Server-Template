@@ -1,6 +1,9 @@
 # THIS SCRIPT IS AN AUTOLOAD
 extends Node
 
+# This is just for the project it isn't needed, but can actually be helpful for diffrent lobby systems
+signal update_list
+
 # The address is the IP address of the server you are connecting to
 # the best example is your local network. You can connect to is by using "127.0.0.1"
 var address: String
@@ -24,14 +27,13 @@ func _ready():
 #This will automatically detect when a new player has joined the game
 func peer_connected(id):
 	print("Player Connected: " + str(id))
-
+	
 #This will automatically remove any disconnected players from the game 
 func peer_disconnected(id):
 	print("Player Disconnected: " + str(id))
 	# If we don't erase the ID the server may try to call something for the player that we doesn't exist
 	GameManager.Players.erase(id)
-	
-
+	update_list.emit()
 #Whenever you join a game it will send a command to the server saying certain data like your username and multiplayer ID
 func connected_to_server():
 	print("Connected to server!")
@@ -67,22 +69,25 @@ func SendPlayerInfo(playerName, id, localHost):
 				"playerName": playerName,
 				"id": id,
 			}
+		update_list.emit()
 	if multiplayer.is_server():
 		for i in GameManager.Players:
 			SendPlayerInfo.rpc(GameManager.Players[i].playerName, i, localHost)
 
 #Starts a basic game server using a port
-func hostGame(port):
+func hostGame(port, _lan = false, _username = ""):
 	peer = ENetMultiplayerPeer.new()
 	var error = peer.create_server(port, 10)
 	if error != OK:
 		print("cannot host: " + str(error))
 		return
+	if _lan:
+		SendPlayerInfo(_username,multiplayer.get_unique_id(), _lan)
 	multiplayer.set_multiplayer_peer(peer)
 	print("Waiting for Players!")
 
 #Joining script
-func joinGame(madename):
+func joinGame(address, madename, port = 7777):
 	peer = ENetMultiplayerPeer.new()
 	var error = peer.create_client(address,port)
 	if error != OK:
@@ -90,6 +95,7 @@ func joinGame(madename):
 		return
 	print("made peer!")
 	multiplayer.set_multiplayer_peer(peer)
+	username = madename
 
 
 func leaveGame(id):

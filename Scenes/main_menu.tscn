@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://du2ccgclj7alc"]
+[gd_scene load_steps=2 format=3 uid="uid://du2ccgclj7alc"]
+
+[ext_resource type="Script" path="res://Scenes/main_menu.gd" id="1_6we5d"]
 
 [node name="Main Menu" type="Control"]
 layout_mode = 3
@@ -7,3 +9,73 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_6we5d")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -99.0
+offset_top = -50.0
+offset_right = 99.0
+offset_bottom = 51.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 25
+
+[node name="usernameEntry" type="LineEdit" parent="VBoxContainer"]
+layout_mode = 2
+placeholder_text = "Username"
+
+[node name="host" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Host"
+
+[node name="join" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Join"
+
+[node name="OptionButton" type="OptionButton" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+item_count = 2
+selected = 0
+popup/item_0/text = "LAN"
+popup/item_0/id = 0
+popup/item_1/text = "SERVER"
+popup/item_1/id = 1
+
+[node name="address" type="LineEdit" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+text = "127.0.0.1"
+placeholder_text = "IP"
+editable = false
+
+[node name="joinGame" type="Button" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Join Game"
+
+[node name="Names" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="button_down" from="VBoxContainer/host" to="." method="_on_host_button_down"]
+[connection signal="button_down" from="VBoxContainer/join" to="." method="_on_join_button_down"]
+[connection signal="item_selected" from="VBoxContainer/OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="button_down" from="VBoxContainer/joinGame" to="." method="_on_join_game_button_down"]
