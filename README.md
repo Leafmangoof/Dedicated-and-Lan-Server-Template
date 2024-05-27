@@ -1,3 +1,6 @@
 # A Simple Dedicated Server Handler
-## What this is for?
-This isn't really a tutorial on how servers work on any level, but I hope that this can help describe why certian things happen in the script
+I wanted to make a simple dedicated server handler for me and my buddies, so we can make multiplayer games without the hassle of adding these scripts like a million times!
+
+## What is in this repo?
+In here is a basic scene with connecting to LAN or to a dedicated server of your choosing
+
