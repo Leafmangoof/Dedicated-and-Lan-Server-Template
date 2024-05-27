@@ -9,4 +9,3 @@ In here is a basic scene with connecting to LAN or to a dedicated server of your
 
 ## Is this a tutorial?
 No. This does have comments telling you what the functions do, but if you have this project i'm assuming that you know atleast a little on how multiplayer works in games.
-
