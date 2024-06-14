@@ -5,8 +5,8 @@ var local_ip = "127.0.0.1"
 
 func _ready():
 	Server.update_list.connect(show_data)
-	# This grabs your local IP Address
-	#
+	# This grabs your local IPv4 Address
+	# DONT PUBLICLY SHARE THIS ADDRESS. This is PRIVATE so please don't share it willy nilly
 	# This one can only work on windows, but that isn't really a problem right now
 	if OS.has_feature("windows"):
 		if OS.has_environment("COMPUTERNAME"):
