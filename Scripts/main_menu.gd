@@ -1,9 +1,17 @@
 extends Control
 
+var local_ip = "127.0.0.1"
+
 
 func _ready():
 	Server.update_list.connect(show_data)
-
+	# This grabs your local IP Address
+	#
+	# This one can only work on windows, but that isn't really a problem right now
+	if OS.has_feature("windows"):
+		if OS.has_environment("COMPUTERNAME"):
+			local_ip = IP.resolve_hostname(str(OS.get_environment("COMPUTERNAME")),1)
+	
 func _on_host_button_down():
 	Server.hostGame(7777, true, $VBoxContainer/usernameEntry.text)
 	$VBoxContainer.hide()
@@ -19,9 +27,7 @@ func _on_join_button_down():
 
 func _on_option_button_item_selected(index):
 	if index == 0:
-		# "127.0.0.1" is your IP address to connect to your local network
-		# everyone has the same one
-		$VBoxContainer/address.text = "127.0.0.1"
+		$VBoxContainer/address.text = str(local_ip)
 		$VBoxContainer/address.editable = false
 	elif index == 1:
 		$VBoxContainer/address.text = ""
