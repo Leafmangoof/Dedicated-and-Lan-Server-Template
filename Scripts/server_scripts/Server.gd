@@ -7,7 +7,7 @@ extends Node
 signal update_list
 
 ## The address is the IP address of the server you are connecting to
-## the best example is your local network. You can connect to is by using "127.0.0.1"
+## the best example is your local computer. You can connect to is by using "127.0.0.1"
 var address: String
 ## The port of the server for this code the number is "7777"
 ## TODO: Find out more about ports and what they are for a router
